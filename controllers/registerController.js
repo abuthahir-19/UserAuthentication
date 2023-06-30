@@ -39,8 +39,6 @@ const createNewUser = async (req, res) => {
         "Phone" : phone,
     };
 
-    userDB.setUsers ([...userDB.users, newUser]);
-
     var sqlQuery = 'select * from registeredusers where Email = ? and Phone = ?';
     db.query (sqlQuery, [email, phone], async (er, result) => {
         if (er) {
@@ -63,7 +61,9 @@ const createNewUser = async (req, res) => {
                         console.log ("Records inserted to the database succesfully !");
                         // console.log ("No of records inserted : " + result.affectedRows);
                     }
-                })
+                });
+
+                userDB.setUsers ([...userDB.users, newUser]);
 
                 await fsPromises.writeFile (
                     path.join (__dirname, '..', 'model', 'users.json'),
