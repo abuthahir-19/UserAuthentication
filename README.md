@@ -1,0 +1,1 @@
+A simple user authentication backend using Node.js, Express.js and MySQL Database
